@@ -31,7 +31,7 @@ LICENSE:
 ************************************************************************/
 
 /************************************************************************
-uart_available, uart_flush, uart1_available, and uart1_flush functions
+uart_rx_available, uart_flush, uart1_rx_available, and uart1_flush functions
 were adapted from the Arduino HardwareSerial.h library by Tim Sharpe on
 11 Jan 2009.  The license info for HardwareSerial.h is as follows:
 
@@ -220,8 +220,8 @@ were adapted from the Arduino HardwareSerial.h library by Tim Sharpe on
 /** @brief Macro to put string from program memory to ringbuffer for transmitting via USART0 (only available on selected ATmega) @see uart0_puts_p */
 #define uart_puts_p(s)    uart0_puts_p(s)
 
-/** @brief Macro to return number of bytes waiting in the receive buffer of USART0 @see uart0_available */
-#define uart_available()  uart0_available()
+/** @brief Macro to return number of bytes waiting in the receive buffer of USART0 @see uart0_rx_available */
+#define uart_rx_available()  uart0_rx_available()
 
 /** @brief Macro to flush bytes waiting in receive buffer of USART0 @see uart0_flush */
 #define uart_flush()      uart0_flush()
@@ -342,7 +342,13 @@ extern void uart0_puts_p(const char *s);
  *  @brief   Return number of bytes waiting in the receive buffer
  *  @return  bytes waiting in the receive buffer
  */
-extern uint16_t uart0_available(void);
+extern uint16_t uart0_rx_available(void);
+
+/**
+ *  @brief   Return number of bytes available in the transmit buffer
+ *  @return  bytes available in the transmit buffer
+ */
+extern uint16_t uart0_tx_available(void);
 
 /**
  *  @brief   Flush bytes waiting in receive buffer
@@ -372,7 +378,10 @@ extern void uart1_puts_p(const char *s);
 #define uart1_puts_P(__s)       uart1_puts_p(PSTR(__s))
 
 /** @brief  Return number of bytes waiting in the receive buffer of USART1 */
-extern uint16_t uart1_available(void);
+extern uint16_t uart1_rx_available(void);
+
+/** @brief  Return number of bytes available in the transmit buffer of USART1 */
+extern uint16_t uart1_tx_available(void);
 
 /** @brief  Flush bytes waiting in receive buffer of USART1 */
 extern void uart1_flush(void);
@@ -400,7 +409,10 @@ extern void uart2_puts_p(const char *s);
 #define uart2_puts_P(__s)       uart2_puts_p(PSTR(__s))
 
 /** @brief  Return number of bytes waiting in the receive buffer of USART2 */
-extern uint16_t uart2_available(void);
+extern uint16_t uart2_rx_available(void);
+
+/** @brief  Return number of bytes available in the transmit buffer of USART2 */
+extern uint16_t uart2_tx_available(void);
 
 /** @brief  Flush bytes waiting in receive buffer of USART2 */
 extern void uart2_flush(void);
@@ -428,7 +440,10 @@ extern void uart3_puts_p(const char *s);
 #define uart3_puts_P(__s)       uart3_puts_p(PSTR(__s))
 
 /** @brief  Return number of bytes waiting in the receive buffer of USART3 */
-extern uint16_t uart3_available(void);
+extern uint16_t uart3_rx_available(void);
+
+/** @brief  Return number of bytes available in the transmit buffer of USART3 */
+extern uint16_t uart3_tx_available(void);
 
 /** @brief  Flush bytes waiting in receive buffer of USART3 */
 extern void uart3_flush(void);

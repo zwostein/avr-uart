@@ -41,7 +41,7 @@ LICENSE:
 *************************************************************************/
 
 /************************************************************************
-uart_available, uart_flush, uart1_available, and uart1_flush functions
+uart_rx_available, uart_flush, uart1_rx_available, and uart1_flush functions
 were adapted from the Arduino HardwareSerial.h library by Tim Sharpe on
 11 Jan 2009.  The license info for HardwareSerial.h is as follows:
 
@@ -770,12 +770,12 @@ void uart0_puts_p(const char *progmem_s)
 
 
 /*************************************************************************
-Function: uart0_available()
+Function: uart0_rx_available()
 Purpose:  Determine the number of bytes waiting in the receive buffer
 Input:    None
 Returns:  Integer number of bytes in the receive buffer
 **************************************************************************/
-uint16_t uart0_available(void)
+uint16_t uart0_rx_available(void)
 {
 	uint16_t ret;
 
@@ -783,7 +783,25 @@ uint16_t uart0_available(void)
 		ret = (UART_RX0_BUFFER_SIZE + UART_RxHead - UART_RxTail) & UART_RX0_BUFFER_MASK;
 	}
 	return ret;
-} /* uart0_available */
+} /* uart0_rx_available */
+
+
+/*************************************************************************
+Function: uart0_tx_available()
+Purpose:  Determine the number of bytes available in the transmit buffer
+Input:    None
+Returns:  Integer number of bytes available in the transmit buffer
+**************************************************************************/
+uint16_t uart0_tx_available(void)
+{
+	uint16_t ret;
+
+	ATOMIC_BLOCK(ATOMIC_FORCEON) {
+		ret = (UART_TxTail - UART_TxHead - 1) & UART_TX0_BUFFER_MASK;
+	}
+	return ret;
+} /* uart0_tx_available */
+
 
 /*************************************************************************
 Function: uart0_flush()
@@ -1027,12 +1045,12 @@ void uart1_puts_p(const char *progmem_s)
 
 
 /*************************************************************************
-Function: uart1_available()
+Function: uart1_rx_available()
 Purpose:  Determine the number of bytes waiting in the receive buffer
 Input:    None
 Returns:  Integer number of bytes in the receive buffer
 **************************************************************************/
-uint16_t uart1_available(void)
+uint16_t uart1_rx_available(void)
 {
 	uint16_t ret;
 
@@ -1040,7 +1058,24 @@ uint16_t uart1_available(void)
 		ret = (UART_RX1_BUFFER_SIZE + UART1_RxHead - UART1_RxTail) & UART_RX1_BUFFER_MASK;
 	}
 	return ret;
-} /* uart1_available */
+} /* uart1_rx_available */
+
+
+/*************************************************************************
+Function: uart1_tx_available()
+Purpose:  Determine the number of bytes available in the transmit buffer
+Input:    None
+Returns:  Integer number of bytes available in the transmit buffer
+**************************************************************************/
+uint16_t uart1_tx_available(void)
+{
+	uint16_t ret;
+
+	ATOMIC_BLOCK(ATOMIC_FORCEON) {
+		ret = (UART1_TxTail - UART1_TxHead - 1) & UART_TX1_BUFFER_MASK;
+	}
+	return ret;
+} /* uart1_tx_available */
 
 
 
@@ -1288,12 +1323,12 @@ void uart2_puts_p(const char *progmem_s)
 
 
 /*************************************************************************
-Function: uart2_available()
+Function: uart2_rx_available()
 Purpose:  Determine the number of bytes waiting in the receive buffer
 Input:    None
 Returns:  Integer number of bytes in the receive buffer
 **************************************************************************/
-uint16_t uart2_available(void)
+uint16_t uart2_rx_available(void)
 {
 	uint16_t ret;
 
@@ -1301,7 +1336,24 @@ uint16_t uart2_available(void)
 		ret = (UART_RX2_BUFFER_SIZE + UART2_RxHead - UART2_RxTail) & UART_RX2_BUFFER_MASK;
 	}
 	return ret;
-} /* uart2_available */
+} /* uart2_rx_available */
+
+
+/*************************************************************************
+Function: uart2_tx_available()
+Purpose:  Determine the number of bytes available in the transmit buffer
+Input:    None
+Returns:  Integer number of bytes available in the transmit buffer
+**************************************************************************/
+uint16_t uart2_tx_available(void)
+{
+	uint16_t ret;
+
+	ATOMIC_BLOCK(ATOMIC_FORCEON) {
+		ret = (UART2_TxTail - UART2_TxHead - 1) & UART_TX2_BUFFER_MASK;
+	}
+	return ret;
+} /* uart2_tx_available */
 
 
 
@@ -1548,12 +1600,12 @@ void uart3_puts_p(const char *progmem_s)
 
 
 /*************************************************************************
-Function: uart3_available()
+Function: uart3_rx_available()
 Purpose:  Determine the number of bytes waiting in the receive buffer
 Input:    None
 Returns:  Integer number of bytes in the receive buffer
 **************************************************************************/
-uint16_t uart3_available(void)
+uint16_t uart3_rx_available(void)
 {
 	uint16_t ret;
 
@@ -1561,7 +1613,24 @@ uint16_t uart3_available(void)
 		ret = (UART_RX3_BUFFER_SIZE + UART3_RxHead - UART3_RxTail) & UART_RX3_BUFFER_MASK;
 	}
 	return ret;
-} /* uart3_available */
+} /* uart3_rx_available */
+
+
+/*************************************************************************
+Function: uart3_tx_available()
+Purpose:  Determine the number of bytes available in the transmit buffer
+Input:    None
+Returns:  Integer number of bytes available in the transmit buffer
+**************************************************************************/
+uint16_t uart3_tx_available(void)
+{
+	uint16_t ret;
+
+	ATOMIC_BLOCK(ATOMIC_FORCEON) {
+		ret = (UART3_TxTail - UART3_TxHead - 1) & UART_TX3_BUFFER_MASK;
+	}
+	return ret;
+} /* uart3_tx_available */
 
 
 
